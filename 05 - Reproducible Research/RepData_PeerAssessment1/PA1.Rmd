@@ -1,6 +1,10 @@
 ---
-output: html_document
+title: "Reproducible Research: Peer Assessment 1"
+output:
+  html_document:
+    keep_md: true
 ---
+
 ```{r include=FALSE}
 library(plyr)
 library(ggplot2)
@@ -10,9 +14,9 @@ library(ggplot2)
 
 Show any code that is needed to:
 
-1.     Load the data (i.e. read.csv())
+1. Load the data (i.e. read.csv())
 
-1.     Process/transform the data (if necessary) into a format suitable for your analysis
+1. Process/transform the data (if necessary) into a format suitable for your analysis
 
 ```{r}
 activity <- read.csv("activity.csv")
