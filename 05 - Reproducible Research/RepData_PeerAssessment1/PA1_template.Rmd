@@ -74,8 +74,8 @@ Make a histogram of the total number of steps taken each day and calculate and r
 ```{r}
 day_steps.filled <- ddply(activity.filled,  .(n_date), summarize, steps = sum(steps, na.rm = TRUE))
 qplot(day_steps.filled$steps, binwidth=2000, geo="histogram", xlab="Steps", ylab="Frequency")
-mean(day_steps.filled)
-median(day_steps.filled)
+mean(day_steps.filled$steps)
+median(day_steps.filled$steps)
 ```
 
 ## Are there differences in activity patterns between weekdays and weekends?

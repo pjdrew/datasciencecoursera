@@ -114,24 +114,19 @@ qplot(day_steps.filled$steps, binwidth=2000, geo="histogram", xlab="Steps", ylab
 ![plot of chunk unnamed-chunk-9](figure/unnamed-chunk-9-1.png) 
 
 ```r
-mean(day_steps.filled)
+mean(day_steps.filled$steps)
 ```
 
 ```
-## Warning in mean.default(day_steps.filled): argument is not numeric or
-## logical: returning NA
-```
-
-```
-## [1] NA
+## [1] 10766.19
 ```
 
 ```r
-median(day_steps.filled)
+median(day_steps.filled$steps)
 ```
 
 ```
-## Error in median.default(day_steps.filled): need numeric data
+## [1] 10766.19
 ```
 
 ## Are there differences in activity patterns between weekdays and weekends?
