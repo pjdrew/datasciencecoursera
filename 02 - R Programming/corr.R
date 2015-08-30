@@ -16,7 +16,11 @@ corr <- function(directory, threshold = 0) {
 
     for (i in 1:length(all_files)) {
         if (sum(complete.cases(read.csv(all_files[i]))) > threshold) 
-            {v <- c(v, cor(read.csv(all_files[i])$sulfate,read.csv(all_files[i])$nitrate,use="complete.obs") )}
+            {v <- c(v, cor(read.csv(all_files[i])$sulfate,
+                           read.csv(all_files[i])$nitrate,
+                           use="complete.obs") 
+                   )
+            }
         }
 
     v

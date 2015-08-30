@@ -14,6 +14,7 @@ complete <- function(directory, id = 1:332) {
     ## number of complete cases
     all_files <- list.files(directory, full.names=TRUE)
     df <- data.frame(id=character(),nobs=integer(),stringsAsFactors=FALSE)
+
     for (i in id) {
         count <- sum(complete.cases(read.csv(all_files[i])))
         df[nrow(df) +1,] <- c(toString(i), count)
