@@ -24,7 +24,7 @@ rankall <- function(outcome, num = "best") {
   )
   
   ## Check that state and outcome are valid
-
+  states <- unique(outcome.tidy$State)
   outcomes <- c("heart attack", "heart failure", "pneumonia")
   
   if (!is.element(outcome, outcomes)) {
@@ -36,17 +36,37 @@ rankall <- function(outcome, num = "best") {
 
   names(outcome.only)[names(outcome.only) == eval(outcome)] <- "three"
     
-  hosps.ranked <- outcome.only %>% arrange(State,three,Hospital.Name) %>% mutate(rank = dense_rank(State, three, Hospital.Name))
+  hosps.ranked <- outcome.only %>% arrange(State,three,Hospital.Name) 
   
-  if (num == "best") {
-    num.used <- 1
-  } else if (num == "worst") {
-    num.used <- max(hosps.ranked$rank)
-  } else
-    num.used <- num
+#   if (num == "best") {
+#     num.used <- 1
+#   } else if (num == "worst") {
+#     num.used <- max(hosps.ranked$rank)
+#   } else
+#     num.used <- num
   
-  requested <- hosps.ranked %>% filter(rank == num.used) %>% arrange(State, Hospital.Name)
+  hosps.subsetted <- data_frame(hospital=character(),state=character(), three=integer(), rank=double())
+  
+  for (st in 1:length(states))
+  { 
+    one.state <- hosps.ranked %>% filter(State == states[st]) %>% mutate(rank = order(State, three, Hospital.Name))
+    
+    if (num == "best") {
+      num.used <- 1
+    } else if (num == "worst") {
+      num.used <- max(one.state$rank)
+    } else
+      num.used <- num
+    
+    if (num.used > max(one.state$rank)) {
+      hosps.subsetted[nrow(hosps.subsetted) +1, ] <- c(NA, one.state$State, NA, NA)
+    } else {
+    hosps.subsetted[nrow(hosps.subsetted) +1, ] <- one.state %>% filter(rank == num.used) %>% arrange(Hospital.Name)}
+  }
+  
+  requested <- hosps.subsetted %>% select(hospital, state) %>% arrange(state)
 
   ## Return a data frame with the hospital names and the
   ## (abbreviated) state name
-}
+  requested
+  }
